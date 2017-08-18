@@ -37,5 +37,5 @@ public class Item {
 
     public String getImgUrl(){
         return imgUrl;
-
+    }
 }
