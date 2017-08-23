@@ -48,6 +48,7 @@ public class ScraperController {
                     HtmlAnchor itemAnchor = ((HtmlAnchor) htmlItem.getFirstByXPath(".//a"));
                     HtmlElement spanPrice = ((HtmlElement) htmlItem.getFirstByXPath(".//strong[@class='price price--hrk']"));
                     HtmlElement itemImgUrl = ((HtmlElement) htmlItem.getFirstByXPath(".//img[@data-src]"));
+                    HtmlElement description = ((HtmlElement) htmlItem.getFirstByXPath(".//div[@class='entity-description-main']"));
 
                     String itemPrice = spanPrice == null ? "0.0" : spanPrice.asText();
 
@@ -56,6 +57,7 @@ public class ScraperController {
                     item.setTitle(itemAnchor.asText());
                     item.setUrl(baseUrl + itemAnchor.getHrefAttribute());
                     item.setImgUrl(itemImgUrl.getAttribute("data-src"));
+                    item.setDescription(description.asText());
 
                     item.setPrice(itemPrice);
 

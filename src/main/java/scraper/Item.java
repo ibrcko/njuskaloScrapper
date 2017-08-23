@@ -6,6 +6,7 @@ public class Item {
     private String price;
     private String url;
     private String imgUrl;
+    private String description;
 
     public String getTitle() {
         return title;
@@ -39,4 +40,16 @@ public class Item {
         return imgUrl;
 
     }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+
+
+
 }
