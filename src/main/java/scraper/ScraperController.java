@@ -3,9 +3,7 @@ package scraper;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -15,14 +13,13 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 @Controller
 public class ScraperController {
 
+    @CrossOrigin
     @RequestMapping(value = "/njuskaloScraper", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Item> getData(@RequestParam(value = "query", required = true) String query, Model model) throws JSONException {
@@ -36,7 +33,6 @@ public class ScraperController {
         client.getOptions().setJavaScriptEnabled(false);
 
         List<Item> itemList = new ArrayList<>();
-        //JSONObject jsonToBeReturnedAsResponse = new JSONObject();
 
         try {
             String searchUrl = baseUrl + "?ctl=search_ads&keywords=" + URLEncoder.encode(searchQuery, "UTF-8") + "&categoryId=7";
@@ -63,10 +59,6 @@ public class ScraperController {
 
                     item.setPrice(itemPrice);
 
-                    //JSONObject jsonObject = new JSONObject();
-                    //jsonObject.put("Item:", item);
-
-                    //System.out.println(jsonObject);
                     itemList.add(item);
 
                 }
@@ -75,9 +67,8 @@ public class ScraperController {
             e.printStackTrace();
         }
 
-        //jsonToBeReturnedAsResponse.put("objects", arrayOfJSONObjects);
-
         return itemList;
+
     }
 
 }
